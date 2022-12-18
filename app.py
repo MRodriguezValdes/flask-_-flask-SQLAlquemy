@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from faker import Faker
 
 import random
@@ -143,3 +143,95 @@ def create_random_data():
     add_orders()
     add_products()
     add_order_products()
+
+
+# Esta funncion recibe por defecto el cliente 1 y retorna los pedidos que ha hecho determinado cliente
+def get_orders_by(customer_id=1):
+    print("Get Orders by Customer")
+    customer_orders = Order.query.filter_by(customer_id=customer_id).all()
+    for order in customer_orders:
+        print(order.order_date)
+
+
+# Devuelve la ordenes pedientes, es decir , la que tienen valor None en su fecha de compra.
+def get_pending_orders():
+    print("Pending Orders")
+
+    pending_orders = (
+        Order.query.filter(Order.shipped_date.is_(None))
+        .order_by(Order.order_date.desc())
+        .all()
+    )
+    for order in pending_orders:
+        print(order.order_date)
+
+
+# Devuelve el numero de clientes de nuestra BD
+def how_many_customers():
+    print("How many customers?")
+    print(Customer.query.count())
+
+
+# Devuelve todas la ordenes que tengan coupon_code y sea distinto de "FREESHIPPING"
+def orders_with_code():
+    print("Orders with coupon code")
+    orders = Order.query.filter(Order.coupon_code.isnot(None)).all()
+    for order in orders:
+        print(order.coupon_code)
+
+
+# Devuelve los ingresos en los x dias anteriores, por defecto recibe 30 dias
+def revenue_in_last_x_days(x_days=30):
+    print("Revenue past x days")
+    # Mostramos el resultado de la suma del precio de los productos comprados en los x dias anterirores
+    # Para eso necesitamos hacer un join entre las tablas order_product y order
+    # Para el resultado de esa union filrarlo por la fecha de orden que sea superior al dia que resulta
+    # De la resta de la fecha actual menos 30 dias
+    print(
+        db.session.query(db.func.sum(Product.price))
+        .join(order_product)
+        .join(Order)
+        .filter(Order.order_date > (datetime.now() - timedelta(days=x_days)))
+        .scalar()  # Con esto devolvemos un numero entero
+    )
+
+
+# Tiempo promedio que se demora un usuario en completar una compra
+def average_fulfillment_time():
+    print("Average fulfillment time")
+    # Para eso restamos la hora de la compra con la hora del pedido
+    # Luego con la funcion avg hallamos el tiempo promedio
+    # Con time y el segundo parametro "unixepoch" convertimos el resultado de nuevo en tiempo
+    print(
+        db.session.query(
+            db.func.time(
+                db.func.avg(
+                    db.func.strftime("%s", Order.shipped_date)
+                    - db.func.strftime("%s", Order.order_date)
+                ),
+                "unixepoch",
+            )
+        )
+        .filter(Order.shipped_date.isnot(None))  # No queremos pedidos pendientes
+        .scalar()  # Devuelve un unico valor
+    )
+
+#Devuelve los clientes que hayan gastado una cantidad superior a x dollars
+#Para ello hacemos un join entre 3 tablas Order, order_product y Product 
+#Luego agrupamos por los clientes
+#Esto nos  dara como resultado todos los productos comprados por una persona
+#Luego sumamos el precio de esos productos comprados 
+#Y lo comparamos con la cantidad introducida en el metodo
+def get_customers_who_have_purchased_x_dollars(amount=500):
+    print("All customers who have purchased x dollars")
+    customers = (
+        db.session.query(Customer)
+        .join(Order)
+        .join(order_product)
+        .join(Product)
+        .group_by(Customer)
+        .having(db.func.sum(Product.price) > amount)
+        .all()
+    )
+    for customer in customers:
+        print(customer.first_name)
