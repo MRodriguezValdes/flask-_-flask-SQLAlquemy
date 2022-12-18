@@ -98,7 +98,7 @@ def add_orders():
             [None, "50OFF", "FREESHIPPING", "BUYONEGETONE"], [80, 5, 5, 5]
         )[0]
 
-        #Generamos la orden
+        # Generamos la orden
         order = Order(
             customer_id=customer.id,
             order_date=ordered_date,
@@ -110,17 +110,19 @@ def add_orders():
         db.session.add(order)
     db.session.commit()
 
-#Agregamos 10 productos
+
+# Agregamos 10 productos
 def add_products():
     for _ in range(10):
-        #Los prodcutos son colores random con un precio entre 10 y 100
+        # Los prodcutos son colores random con un precio entre 10 y 100
         product = Product(name=fake.color_name(), price=random.randint(10, 100))
         db.session.add(product)
     db.session.commit()
 
-#Se establece una relacion enre el producto y su compra
+
+# Se establece una relacion enre el producto y su compra
 def add_order_products():
-    #Hacemos dos queries para obtener todas las ordenes y productos
+    # Hacemos dos queries para obtener todas las ordenes y productos
     orders = Order.query.all()
     products = Product.query.all()
 
