@@ -133,6 +133,5 @@ Pasos:
 3. Hacemos una query para poder encontrar el registro que deseamos y lo asignamos una variable.
 4. Coprobamos que es el registro que deseamos eliminar
 5. Eliminamos el registro haciendo uso del comando ```db.session.delete(nombre_de_la_variable)```
-6. Guardamos los cambios con ```db.session.commit()
-```
+6. Guardamos los cambios con ```db.session.commit()```
 7. Comprobamos que ha sido eliminado correctamente.
