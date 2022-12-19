@@ -320,3 +320,6 @@ sudo apt-get install sqlitebrowser
 ![](img/extra6.png)
 
 # Tambien podemos realizar consultas SQL a nuestra base de datos :
+
+![](img/extra7.png)
+
