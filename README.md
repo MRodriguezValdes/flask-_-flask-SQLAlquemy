@@ -115,7 +115,7 @@ Pasos:
 
 ![](img/14.png)
 
-### Comprobamos que han sido agregados forma correcta.
+### Comprobamos que han sido agregados de forma correcta.
 
 ![](img/15.png)
 
