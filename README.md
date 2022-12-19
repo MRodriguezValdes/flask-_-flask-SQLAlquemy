@@ -301,7 +301,7 @@ sudo apt-get install sqlitebrowser
 
 ![](img/extra2.png)
 
-#### Seleccionamos la opción de Browse Data y podemos vizualizar todas las tablas:
+#### Seleccionamos la opción de Browse Data y podemos visualizar todas las tablas:
 
 # Customer:
 
