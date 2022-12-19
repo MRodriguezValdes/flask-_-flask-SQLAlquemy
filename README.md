@@ -286,7 +286,7 @@ Vemos que todo funciona correctamente e hicimos varias pruebas con diversas cant
 Si deseamos no utilizar la linea de comandos para visualizar el contenido de nuestra base de datos 
 podemos instalar la siguiente herramienta [SQlite Browser](https://sqlitebrowser.org/dl/).
 
-En linux podemos ejecutar los siguientes comandos:
+En distribuciones derivadas de DEBIAN / UBUNTU podemos ejecutar los siguientes comandos:
 ```
 sudo apt-get update
 sudo apt-get install sqlitebrowser
