@@ -280,3 +280,43 @@ Vemos que todo funciona correctamente e hicimos varias pruebas con diversas cant
 # Fin
 
 ![](img/fin.png)
+---
+# Extra
+
+Si deseamos no utilizar la linea de comandos para visualizar el contenido de nuestra base de datos 
+podemos instalar la siguiente herramienta [SQlite Browser](https://sqlitebrowser.org/dl/).
+
+En linux podemos ejecutar los siguientes comandos:
+```
+sudo apt-get update
+sudo apt-get install sqlitebrowser
+```
+### Ejemplo de uso:
+
+#### Asi luce el entorno
+
+![](img/extra1.png)
+
+#### Seleccionamos la opcion de *abrir base de datos* y seleccionamos la base de datos de nuestro proyecto.
+
+![](img/extra2.png)
+
+#### Seleccionamos la opcion de Browse Data y podemos vizualizar todas las tablas:
+
+# Customer
+
+![](img/extra3.png)
+
+# Order
+
+![](img/extra4.png)
+
+# order_product 
+
+![](img/extra5.png)
+
+# Product
+
+![](img/extra6.png)
+
+# Tambien podemos realizar consultas SQL a nuestra base de datos :
